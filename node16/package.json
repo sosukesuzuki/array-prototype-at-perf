@@ -1,0 +1,9 @@
+{
+  "name": "node16",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "volta": {
+    "node": "16.19.1"
+  }
+}

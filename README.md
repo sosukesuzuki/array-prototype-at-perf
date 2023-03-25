@@ -23,4 +23,3 @@ array[array.length -1] 47.45416694879532 ms
 array.at(-1)           62.53858298063278 ms
 
 ```
-# array-prototype-at-perf

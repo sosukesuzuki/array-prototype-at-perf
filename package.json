@@ -1,0 +1,13 @@
+{
+  "name": "array-prototype-at-perf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "gen-readme": "node ./index.js"
+  },
+  "author": {
+    "name": "Sosuke Suzuki",
+    "email": "aosukeke@gmail.com"
+  },
+  "license": "MIT"
+}
