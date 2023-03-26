@@ -1,26 +1,19 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const child_process = require("node:child_process");
+const util = require("node:util");
 
-const outputForNode16 = child_process
-  .execSync("volta run --node=16 node ./index.js", {
-    cwd: path.join(process.cwd(), "node16"),
-  })
-  .toString();
+const exec = util.promisify(child_process.exec);
 
-const outputForNode18 = child_process
-  .execSync("volta run --node=18 node ./index.js", {
-    cwd: path.join(process.cwd(), "node18"),
-  })
-  .toString();
-
-const outputForNode19 = child_process
-  .execSync(`volta run --node=19 node ./index.js`, {
-    cwd: path.join(process.cwd(), "node19"),
-  })
-  .toString();
-
-const body = `# \`arr[arr.length - 1]\` VS \`arr.at(-1)\` performance
+(async () => {
+  const [outputForNode16, outputForNode18, outputForNode19] = await Promise.all(
+    [
+      exec("volta run --node=16 node ./bench.js").then(({ stdout }) => stdout),
+      exec("volta run --node=18 node ./bench.js").then(({ stdout }) => stdout),
+      exec("volta run --node=19 node ./bench.js").then(({ stdout }) => stdout),
+    ]
+  );
+  const body = `# \`arr[arr.length - 1]\` VS \`arr.at(-1)\` performance
 
 ## Node.js v16
 
@@ -41,4 +34,5 @@ ${outputForNode19}
 \`\`\`
 `;
 
-fs.writeFileSync(path.join(process.cwd(), "README.md"), body);
+  fs.writeFileSync(path.join(process.cwd(), "README.md"), body);
+})();

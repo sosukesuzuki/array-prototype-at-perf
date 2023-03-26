@@ -15,11 +15,13 @@ const observer = new PerformanceObserver((items) => {
   const perfEntries = items
     .getEntries()
     .sort((a, b) => (a.name.length < b.name.length ? 1 : -1));
+  const targetLength = perfEntries[0].name.length;
   for (const perfEntry of perfEntries) {
-    const targetLength = perfEntries[0].name.length;
-    console.log(
-      perfEntry.name.padEnd(targetLength, " "),
-      `${perfEntry.duration} ms`
+    const newLine = perfEntries.at(-1) === perfEntry ? "" : "\n";
+    process.stdout.write(
+      `${perfEntry.name.padEnd(targetLength, " ")} ${
+        perfEntry.duration
+      } ms${newLine}`
     );
   }
   performance.clearMarks();

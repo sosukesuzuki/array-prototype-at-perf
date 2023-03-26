@@ -1,9 +1,0 @@
-{
-  "name": "node18",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "volta": {
-    "node": "18.15.0"
-  }
-}
